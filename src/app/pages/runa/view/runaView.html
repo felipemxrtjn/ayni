@@ -1,0 +1,102 @@
+<section ng-controller="runaViewCtrl">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div ba-panel ba-panel-title="Dashboard" ba-panel-toolbar-items="runaToolButtons">
+       
+        <div >       
+          
+          <div class="form-group select-page-size-wrap " style="display: none;">
+            <label>Rows on page
+              <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+                      ng-model="smartTablePageSize" ng-options="i for i in [5,10,15,20,25]">
+              </select>
+            </label>
+          </div>
+
+          <table class="table" style="display: none;">
+            <thead>
+            <tr>
+              <th >#</th>
+              <th></th>
+              <th >Name</th>
+              <th >Email</th>
+              <th >Description</th>
+              <!-- <th st-sort="email">Email</th>
+              <th st-sort="age">Age</th> -->
+            </tr>
+            <tr>
+              <!-- <th></th>
+              <th><input st-search="firstName" placeholder="Search First Name" class="input-sm form-control search-input"
+                        type="search"/></th>
+              <th><input st-search="lastName" placeholder="Search Last Name" class="input-sm form-control search-input"
+                        type="search"/></th>
+              <th><input st-search="username" placeholder="Search Username" class="input-sm form-control search-input"
+                        type="search"/></th>
+              <th><input st-search="email" placeholder="Search Email" class="input-sm form-control search-input" type="search"/>
+              </th>
+              <th><input st-search="age" placeholder="Search Age" class="input-sm form-control search-input" type="search"/>
+              </th> -->
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in runaList" class="little-human" ui-sref="runa.edit({id: item.id})"> 
+                <td >{{item.id}}</td>
+                <td  class="photo-td">
+                  <img ng-src="{{ item.profileImageUrl }}" class="little-human-picture">
+                </td>                
+                <td>
+                  <div class="name-container">
+                    <div><span class="name">{{item.name}}</span></div>
+                    <div><span class="tag label label-primary" ng-repeat="tags in item.tags">{{tags}}</span></div>
+                  </div>                
+                </td>
+                <td>{{item.email}}</td>
+                <td>{{item.description}}</td>
+                <!-- <td><a class="email-link" ng-href="mailto:{{item.email}}">{{item.email}}</a></td>
+                <td>{{item.age}}</td> -->
+              </tr>
+            </tbody>
+            <tfoot>
+            <!-- <tr>
+              <td colspan="6" class="text-center">
+                <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+              </td>
+            </tr> -->
+            </tfoot>
+          </table>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row pie-charts">
+                <div class="pie-chart-item-container" ng-repeat="item in runaList">
+                  <div ba-panel>
+                    <div class="pie-chart-item">
+                      <div class="chart little-human" >
+                        <img ng-src="{{ item.profileImageUrl }}" class="little-human-picture">
+                      </div>
+                      <div>
+                        <div><b class="truncate-text" title="{{item.name}}">{{ ::item.name }}</b></div>
+                        <div class="truncate-text" title="{{item.email}}" >{{ ::item.email }}</div>
+                        <div><span class="tag label label-primary" ng-repeat="tags in item.tags">{{tags}}</span>&nbsp;</div>
+                        <div style="margin:5px 0px 0px 0px;">
+                            <a ui-sref="runa.edit({id: item.id})">Edit</a>&nbsp;
+                            <a ui-sref="runa.detail({id: item.id})">Detail</a>
+                        </div>
+                      </div>
+                      <i class="chart-icon i-{{ ::item.icon }}"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>        
+        
+      </div>
+    </div>
+  </div>  
+</section>

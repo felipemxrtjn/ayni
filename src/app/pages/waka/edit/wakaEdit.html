@@ -1,0 +1,41 @@
+<section class="waka-edit-page" ng-controller="wakaEditCtrl">
+    <div class="widgets">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div ba-panel ba-panel-class="with-scroll">
+
+
+                    <form class="col-md-12" name="vm.wakaForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback" ng-class="{'has-error': vm.wakaForm.name.$invalid && (vm.wakaForm.name.$dirty || vm.wakaForm.$submitted)}">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Name" ng-model="vm.waka.name" required>
+                                    <span class="help-block error-block basic-block">Required</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea placeholder="Description" class="form-control" ng-model="vm.waka.description"></textarea>
+                                </div>        
+                                <div class="form-group">
+                                    <label>Alias</label>
+                                    <input type="text" class="alias-input" tag-input="primary" data-role="tagsinput" placeholder="Add Alias">   
+                                </div>    
+                                <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary pull-right" ng-disabled="vm.wakaForm.$invalid" ng-click="onBtnUpdateWakaClick()">Save changes</button>
+                                    <button type="button" class="btn btn-secondary pull-right" ng-click="onBtnCancelUpdateClick()">Cancel</button>
+                                </div>                                                   
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>    
+    </div>
+</section>

@@ -1,0 +1,55 @@
+<section class="runa-edit-page" ng-controller="runaEditCtrl">
+    <div class="widgets">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div ba-panel ba-panel-class="with-scroll">
+
+
+                    <form class="col-md-12" name="vm.runaForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback" ng-class="{'has-error': vm.runaForm.name.$invalid && (vm.runaForm.name.$dirty || vm.runaForm.$submitted)}">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Name" ng-model="vm.runa.name" required>
+                                    <span class="help-block error-block basic-block">Required</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': vm.runaForm.email.$invalid && (vm.runaForm.email.$dirty || vm.runaForm.$submitted)}">
+                                    <label>Email address</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Email" ng-model="vm.runa.email" required>
+                                    <span class="help-block error-block basic-block">Proper email required</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea placeholder="Description" class="form-control" ng-model="vm.runa.description"></textarea>
+                                </div>  
+                                <div class="form-group" ng-class="{'has-error': vm.runaForm.profileImageUrl.$invalid && (vm.runaForm.profileImageUrl.$dirty || vm.runaForm.$submitted)}">
+                                    <label>Url Profile Image</label>
+                                    <input type="url" placeholder="Url Profile Image" class="form-control" ng-model="vm.runa.profileImageUrl">
+                                    <span class="help-block error-block basic-block">Proper URL required</span>
+                                </div>       
+                                <div class="form-group">
+                                    <label>Alias</label>
+                                    <input type="text" class="alias-input" tag-input="primary" data-role="tagsinput" placeholder="Add Alias">   
+                                </div>    
+                                <div class="form-group">
+                                    <label>Tag</label>
+                                    <input type="text" class="tag-input" tag-input="primary" data-role="tagsinput" ng-model="vm.runa.tag" placeholder="Add Tag">
+                                </div>  
+                                <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary pull-right" ng-disabled="vm.runaForm.$invalid" ng-click="onBtnUpdateRunaClick()">Save changes</button>
+                                    <button type="button" class="btn btn-secondary pull-right" ng-click="onBtnCancelUpdateClick()">Cancel</button>
+                                </div>                                                   
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>    
+    </div>
+</section>

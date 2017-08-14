@@ -1,0 +1,51 @@
+<section class="ayllus-edit-page" ng-controller="ayllusEditCtrl">
+    <div class="widgets">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div ba-panel ba-panel-class="with-scroll">
+
+
+                    <form class="col-md-12" name="vm.ayllusForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-feedback" ng-class="{'has-error': vm.ayllusForm.name.$invalid && (vm.ayllusForm.name.$dirty || vm.ayllusForm.$submitted)}">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Name" ng-model="vm.ayllus.name" required>
+                                    <span class="help-block error-block basic-block">Required</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': vm.ayllusForm.email.$invalid && (vm.ayllusForm.email.$dirty || vm.ayllusForm.$submitted)}">
+                                    <label>Email address</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Email" ng-model="vm.ayllus.email" required>
+                                    <span class="help-block error-block basic-block">Proper email required</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea placeholder="Description" class="form-control" ng-model="vm.ayllus.description"></textarea>
+                                </div>  
+                                <div class="form-group" ng-class="{'has-error': vm.ayllusForm.profileImageUrl.$invalid && (vm.ayllusForm.profileImageUrl.$dirty || vm.ayllusForm.$submitted)}">
+                                    <label>Url Profile Image</label>
+                                    <input type="url" placeholder="Url Profile Image" class="form-control" ng-model="vm.ayllus.profileImageUrl">
+                                    <span class="help-block error-block basic-block">Proper URL required</span>
+                                </div>       
+                                <div class="form-group">
+                                    <label>Alias</label>
+                                    <input type="text" class="alias-input" tag-input="primary" data-role="tagsinput" placeholder="Add Alias">   
+                                </div>    
+                                <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary pull-right" ng-disabled="vm.ayllusForm.$invalid" ng-click="onBtnUpdateAyllusClick()">Save changes</button>
+                                    <button type="button" class="btn btn-secondary pull-right" ng-click="onBtnCancelUpdateClick()">Cancel</button>
+                                </div>                                                   
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>    
+    </div>
+</section>

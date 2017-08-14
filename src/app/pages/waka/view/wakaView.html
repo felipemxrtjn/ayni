@@ -1,0 +1,37 @@
+<section ng-controller="wakaViewCtrl">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div ba-panel ba-panel-title="Dashboard" ba-panel-toolbar-items="wakaToolButtons">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row pie-charts">
+                <div class="pie-chart-item-container" ng-repeat="item in wakaList">
+                  <div ba-panel>
+                    <div class="pie-chart-item">
+                      <div class="chart little-human" >
+                        <img ng-src="{{ item.profileImageUrl }}" class="little-human-picture">
+                      </div>
+                      <div>
+                        <div><b class="truncate-text" title="{{item.name}}">{{ ::item.name }}</b></div>
+                        <div class="truncate-text" title="{{item.email}}" >{{ ::item.description }}</div>
+                        <div><span class="tag label label-primary" ng-repeat="tags in item.tags">{{tags}}</span>&nbsp;</div>
+                        <div style="margin:5px 0px 0px 0px;">
+                            <a ui-sref="waka.edit({id: item.id})">Edit</a>&nbsp;
+                            <a ui-sref="waka.detail({id: item.id})">Detail</a>
+                        </div>
+                      </div>
+                      <i class="chart-icon i-{{ ::item.icon }}"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+        
+      </div>
+    </div>
+  </div>  
+</section>
