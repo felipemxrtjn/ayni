@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon-96x96.png">
 
-<!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+  <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
   <!-- bower:css -->
   <!-- run `gulp inject` to automatically populate bower styles dependencies -->
   <!-- endbower -->
@@ -90,17 +90,25 @@
                 <div class="panel panel-blur with-scroll heading-widget animated zoomIn" zoom-in="" ba-panel-blur="" 
                     style="background-size: 1433px 806px; background-position: 0px -187px;">
                         <div class="panel-heading clearfix">
-                            <h3 class="panel-title">Start Here
+                            <h3 class="panel-title">Authentication
                                 <div class="pull-right icons-list danger">
                                 </div>
                             </h3>
                         </div>
                     <div class="panel-body" ng-transclude="">
                         <div class="section-block ng-scope bold-text">
+                            
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="emailinput" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="passwordinput" placeholder="Password">
+                            </div>
                             <ul class="list-inline list-unstyled requests">
-                            <li><button type="button" class="btn btn-info js-login">Login</button></li>
-                            <!--<li><button type="button" class="btn btn-default js-call-api">Call API</button></li>
-                            <li><button type="button" class="btn btn-danger js-logout">Logout</button></li>-->
+                                <li><button type="button" class="btn btn-info js-login">Login</button></li>
+                                <li><button type="button" class="btn btn-info js-register">Register</button></li>
                              </ul>
                         </div>
                     </div>
@@ -151,27 +159,7 @@
             <div class="col-xs-6">
                 
             </div>
-        </div>
-    
-        <!--<div class="row">
-            <div class="col-xs-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">User data</div>
-                    <div class="panel-body">
-                        <pre class="js-user"></pre>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xs-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">API call result</div>
-                    <div class="panel-body">
-                        <pre class="js-api-result"></pre>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+        </div>    
     </div>
 </main>
 
@@ -179,68 +167,26 @@
 <!-- endinject -->
 <!-- inject:authentication -->
 <!-- endinject -->
-<script>
-      function display(selector, data) {
-            if (data && typeof data === 'string') {
-                data = JSON.parse(data);
-            }
-            if (data) {
-                data = JSON.stringify(data, null, 2);
-            }
-
-            $(selector).text(data);
-        }
-        var settings = window.ayniConfiguration.authsettings;
-        var manager = new Oidc.UserManager(settings);
-        var user;        
-        Oidc.Log.logger = console;
-        manager.events.addUserLoaded(function (loadedUser) {
-            user = loadedUser;
-            sessionStorage.setItem('ayni:user', user);                        
-            window.location.replace('./index.html');
+<script>      
+        var settings = window.ayniConfiguration.authsettings;                
+        $('.js-register').on('click', function () {               
+            window.location.href = "./reg.html";
         });
-        manager.events.addSilentRenewError(function (error) {
-            console.error('error while renewing the access token', error);
-        });
-
-        manager.events.addUserSignedOut(function () {
-            alert('The user has signed out');
-        });
-        $('.js-login').on('click', function () {
-            manager
-                .signinPopup()
-                .catch(function (error) {
-                    console.error('error while logging in through the popup', error);
-                });
-        });
-
-        $('.js-logout').on('click', function () {
-            manager
-                .signoutRedirect()
-                .catch(function (error) {
-                    console.error('error while signing out user', error);
-                });
-        });
-        $('.js-call-api').on('click', function () {
-            var headers = {};
-            if (user && user.access_token) {
-                headers['Authorization'] = 'Bearer ' + user.access_token;
-            }
-            $.ajax({
-                url: 'http://localhost:7777/ayllu/GetAll',
-                method: 'POST',
-                dataType: 'json',
-                headers: headers
-            }).then(function (data) {
-                display('.js-api-result', data);
-            }).catch(function (error) {
-                display('.js-api-result', {
-                    status: error.status,
-                    statusText: error.statusText,
-                    response: error.responseJSON
-                });
+        $('.js-login').on('click', function () {               
+            var payload = {
+                email : $("#emailinput").text(),
+                password : $("#emailpassword").text()
+            };
+            var def = $.post(settings.apiService.apiUrl + 'api/token', payload);
+            def.done(function(result){
+                console.log(result);
+                sessionStorage.setItem('ayni:user', result);
+            });
+            def.fail(function(result){
+                console.log(result);
             });
         });
+        
 </script>
 
 

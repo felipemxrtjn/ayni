@@ -22,39 +22,38 @@
   <!-- inject:css -->
   <!-- css files will be automatically insert here -->
   <!-- endinject -->
-  <!-- endbuild -->
+  <!-- endbuild -->  
+
 </head>
 <body>
 <main class="auth-main">
   <div class="auth-block">
-    <h1>Sign up to Blur Admin</h1>
+    <h1>Sign up to Ayni Game</h1>
     <a href="auth.html" class="auth-link">Already have a Blur Admin account? Sign in!</a>
 
-    <form class="form-horizontal">
-      <div class="form-group">
-        <label for="inputName3" class="col-sm-2 control-label">Name</label>
-
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputName3" placeholder="Full Name">
-        </div>
-      </div>
+    <form class="form-horizontal">      
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 
         <div class="col-sm-10">
-          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
         </div>
       </div>
       <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-
+        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword2" class="col-sm-2 control-label">Confirm Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="inputPassword2" placeholder="Confirm Password">
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default btn-auth">Sign up</button>
+          <button type="button" id="btnsubmit" class="btn btn-default btn-auth">Sign up</button>
         </div>
       </div>
     </form>
@@ -70,5 +69,35 @@
     </div>
   </div>
 </main>
+<!-- inject:configuration -->
+<!-- endinject -->
+<!-- inject:authentication -->
+<!-- endinject -->
+<script>
+    var settings = window.ayniConfiguration;                
+    $('#btnsubmit').on('click', function () {         
+        var email =  $('#inputEmail').val();        
+        var password = $("#inputPassword").val();
+        var password2 = $("#inputPassword2").val();
+        
+        if (!email){ alert('enter email'); return;}
+        if (!password){ alert('enter password'); return;}
+        if ( password != password2) { alert('confirm password error'); return;}
+
+        var user =  { email : email, password : password };    
+        var defer = $.ajax(settings.apiService.apiUrl + 'api/users', {
+          data : JSON.stringify(user),
+          contentType : 'application/json',
+          type : 'POST'           
+        });        
+        defer.done(function(){
+          alert('user created');
+          window.location.href ="./auth.html";
+        });
+        defer.fail(function(result){
+          alert(result);
+        });
+    });
+</script>  
 </body>
 </html>

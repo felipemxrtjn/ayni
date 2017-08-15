@@ -15,10 +15,8 @@
       templateUrl: 'app/theme/components/pageTop/pageTop.html',
       controller: function () {
           $('.signout').on('click', function () {
-            window.AuthManager.signoutRedirect()
-                  .catch(function (error) {
-                      console.error('error while signing out user', error);
-                  });
+             sessionStorage.clear();
+             window.location.href = "./auth.html";
           });
       }
     };

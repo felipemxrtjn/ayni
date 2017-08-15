@@ -13,7 +13,7 @@ window.ayniConfiguration = {
             popupWindowFeatures: 'location=no,toolbar=no,width=800,height=800,left=100,top=100'
         },
     apiService:{
-        apiUrl: 'http://10.211.55.4:7777/',
+        apiUrl: 'http://127.0.0.1:5000/',
         useMockData: false
     }
 }

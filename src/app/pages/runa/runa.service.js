@@ -11,16 +11,22 @@
             var defer = $q.defer();
             var apiUrl = '';
             var resource = null;
+            var user = JSON.parse(sessionStorage.getItem("ayni:user"))
             if(window.ayniConfiguration.apiService.useMockData){
                 apiUrl = '/app/pages/runa/mock/getAll.json';
                 resource = $resource(apiUrl);
                 resource.apiCall = resource.get; 
             }
             else {
-                apiUrl = window.ayniConfiguration.apiService.apiUrl + 'runa/GetAll';
-                resource = $resource(apiUrl);
-                resource.apiCall = resource.save;//save method makes a post  
+                apiUrl = window.ayniConfiguration.apiService.apiUrl + 'api/runas';                
+                resource = $resource(apiUrl, {}, { 
+                    get:{
+                        method : 'GET',                        
+                        headers:{'Authorization': "Basic " + btoa(user.token+ ":" + '')}
+                    } } );
+                resource.apiCall = resource.get;               
             }
+            
             
             resource.apiCall(function(data, headers){
                 defer.resolve({
@@ -42,7 +48,7 @@
                 apiUrl = window.ayniConfiguration.apiService.apiUrl + 'runa/GetById';
                 resource = $resource(apiUrl,{id: id});
                 resource.apiCall = resource.save;//save method makes a post  
-            }
+            }            
             resource.apiCall(function(data, headers){
                 defer.resolve({
                     data: data

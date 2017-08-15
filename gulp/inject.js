@@ -61,8 +61,7 @@ gulp.task('injectAyniDependencies', function(){
 gulp.task('injectAyniHtmlDependencies', ['injectAyniDependencies', 
     'scripts', 'styles', 'injectAuth', 'inject404', 'copyVendorImages', 'welcomestyle'], function(){
 
-    var gulppath = gulp.src(      [
-        path.join(conf.paths.tmp, '/serve/scripts/oidc-client.js'),        
+    var gulppath = gulp.src(      [        
         path.join(conf.paths.tmp, '/serve/scripts/jquery.js')]);
     var configpath = gulp.src([
         path.join(conf.paths.tmp, '/serve/scripts/ayniconfig.js')]);
@@ -78,6 +77,8 @@ gulp.task('injectAyniHtmlDependencies', ['injectAyniDependencies',
       };
     return gulp.src(
         [
+          path.join(conf.paths.src, '/reg.html'),
+          path.join(conf.paths.src, '/auth.html'),
           path.join(conf.paths.src, '/welcome.html'),
           path.join(conf.paths.src, '/silentrenew.html'),
           path.join(conf.paths.src, '/popup.html')])         

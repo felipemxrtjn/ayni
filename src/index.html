@@ -80,27 +80,13 @@
 <!-- endinject -->
 <!-- endbuild -->
 
-<script>
-        var settings = window.ayniConfiguration.authsettings;
-        var user = sessionStorage.getItem('ayni:user');        
-        window.AuthManager = new Oidc.UserManager(settings);        
-        Oidc.Log.logger = console;
+<script>        
+        var settings = window.ayniConfiguration;
+        var user = sessionStorage.getItem('ayni:user');                        
         if (!user)
         {
-            window.AuthManager.signoutRedirect()
-                  .catch(function (error) {
-                      console.error('error while signing out user', error);
-                  }); 
-        }               
-        window.AuthManager.events.addUserLoaded(function (loadedUser) {            
-            sessionStorage.setItem('ayni:user', user);            
-        });
-        window.AuthManager.events.addSilentRenewError(function (error) {
-            console.error('error while renewing the access token', error);
-        });
-        window.AuthManager.events.addUserSignedOut(function () {            
-            window.location.replace('./welcome.html');         
-        });     
+            window.location.href = "./auth.html";
+        }                       
 </script>
 
 </body>
