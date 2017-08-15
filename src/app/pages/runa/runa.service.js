@@ -5,13 +5,13 @@
       .service('runaService',runaService);
 
   /** @ngInject */
-  function runaService($http, $q, $resource) {
+  function runaService($http, $q, $resource, authentication_service) {
     return {
         getRunaList: function(){
             var defer = $q.defer();
             var apiUrl = '';
-            var resource = null;
-            var user = JSON.parse(sessionStorage.getItem("ayni:user"))
+            var resource = null;            
+            var user = authentication_service.get_user();
             if(window.ayniConfiguration.apiService.useMockData){
                 apiUrl = '/app/pages/runa/mock/getAll.json';
                 resource = $resource(apiUrl);
@@ -20,15 +20,15 @@
             else {
                 apiUrl = window.ayniConfiguration.apiService.apiUrl + 'api/runas';                
                 resource = $resource(apiUrl, {}, { 
-                    get:{
+                    query:{
                         method : 'GET',                        
+                        isArray : true,
                         headers:{'Authorization': "Basic " + btoa(user.token+ ":" + '')}
                     } } );
-                resource.apiCall = resource.get;               
-            }
+                resource.apiCall = resource.query;               
+            }            
             
-            
-            resource.apiCall(function(data, headers){
+            resource.apiCall(function(data, headers){                
                 defer.resolve({
                     data: data
                 });
